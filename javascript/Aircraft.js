@@ -6,7 +6,7 @@ class Aircraft {
     this.img.src = "images/avion.png"; 
     //?ces la img de la izq o de la der?
 
-    this.x = canvas.width - 100;
+    this.x = canvas.width;
     this.y = 0;
     //? esto deberia ser aleatorio
     this.w = 80;
@@ -22,7 +22,7 @@ class Aircraft {
     
   // los aviones se mueven de izq a der y viceversa!
   move = () => {
-    this.x += this.speed
+    this.x -= this.speed
   }
 
 }
