@@ -29,8 +29,10 @@ class Game {
       this.aircraftArr[this.aircraftArr.length - 1].x < 200
     ) {
       // cuando empieza el juego (array vacio)
-      let nuevoAircraft = new Aircraft();
-      this.aircraftArr.push(nuevoAircraft); // añade un tubo
+      let nuevoAircraftArriba = new Aircraft(0, true);
+      this.aircraftArr.push(nuevoAircraftArriba); // añade un tubo
+      let nuevoAircraftAbajo = new Aircraft(150, false);
+      this.aircraftArr.push(nuevoAircraftAbajo)
     }
   };
 

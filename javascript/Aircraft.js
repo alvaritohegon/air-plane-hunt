@@ -1,5 +1,5 @@
 class Aircraft {
-  constructor() {
+  constructor( positionY, isImageUp ) {
     // propiedades de cada avión
 
     this.img = new Image();
@@ -7,10 +7,10 @@ class Aircraft {
     //?ces la img de la izq o de la der?
 
     this.x = canvas.width;
-    this.y = 0;
+    this.y = positionY;
     //? esto deberia ser aleatorio
-    this.w = 80;
-    this.h = 130;
+    this.w = 70;
+    this.h = 100;
     this.speed = 2;
   }
 
