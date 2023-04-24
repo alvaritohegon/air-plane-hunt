@@ -13,13 +13,15 @@ class Game {
     console.log(this.torreta);
 
     //los aviones
+    //* probar haciendo un solo avion
+    this.aircraft = new Aircraft()
 
     //la bala
   }
 
   //! MVP
   // metodos d Game => todas las acciones q se realizan en el juego.
-  // aparecen los aviones de mnera aleatoria
+  
   // que el cañón dispare
   // colisiones de la bala con los aviones
 
@@ -31,10 +33,12 @@ class Game {
     console.log("ejecutando recursión del juego");
 
     // 1. limpieza del canvas
+
     // 2. acciones y movimientos d los elementos
     // 3. dibujado d los elementos
     this.drawBackground();
     this.torreta.torretaDraw();
+    this.aircraft.aircraftDraw();
     // 4. recursion
     requestAnimationFrame(this.gameLoop);
   };
