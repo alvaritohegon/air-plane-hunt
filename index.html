@@ -4,9 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Air Plane Hunt</title>
+    <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
+    <div class="container">
+
+    <!-- gamescreen -->
+    <canvas id="my-canvas" width="600" height="400"></canvas>
+
+    <!-- splashscreen -->
+    <div id="splashscreen" class="container">
+        <img src="images/logo (1).png" width="500" alt="logo">
+        <button id="start-btn">PLAY!</button>
+    </div>
+
+    <!-- gameoverscreen -->
+    <div id="gameover-screen" class="container">
+        <img src="./images/game_over_PNG15.png" width="500" alt="logo">
+        <button id="restart-btn">PLAY AGAIN!</button>
+    </div>
+
+
+    </div>
+
+    <script src="./javascript/main.js"></script>
+    <script src="./javascript/Game.js"></script>
     
 </body>
 </html>
