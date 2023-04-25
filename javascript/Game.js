@@ -18,25 +18,26 @@ class Game {
     this.aircraftArr = [];
 
     //la bala
+    this.bullet = new Bullet();
   }
 
   //! MVP
   // metodos d Game => todas las acciones q se realizan en el juego.
   aircraftsAparecen = () => {
-    // metodo que determina cuando deberia aparecer un tubo
+    // metodo que determina cuando deberia aparecer un avion
     if (
       this.aircraftArr.length === 0 ||
       this.aircraftArr[this.aircraftArr.length - 1].x < 200
     ) {
       // cuando empieza el juego (array vacio)
       let nuevoAircraftArriba = new Aircraft(0, true);
-      this.aircraftArr.push(nuevoAircraftArriba); // añade un tubo
+      this.aircraftArr.push(nuevoAircraftArriba); // añade un avion
       let nuevoAircraftAbajo = new Aircraft(150, false);
       this.aircraftArr.push(nuevoAircraftAbajo)
     }
   };
 
-  // que el cañón dispare
+  
   // colisiones de la bala con los aviones
 
   drawBackground = () => {
@@ -55,12 +56,14 @@ class Game {
       eachAircraft.move();
     });
     this.aircraftsAparecen();
+    this.bullet.bulletMove();
     // 3. dibujado d los elementos
     this.drawBackground();
     this.torreta.torretaDraw();
     this.aircraftArr.forEach((eachAircraft) => {
       eachAircraft.aircraftDraw();
     });
+    this.bullet.bulletDraw();
     // this.aircraft.aircraftDraw();
     // 4. recursion
     requestAnimationFrame(this.gameLoop);

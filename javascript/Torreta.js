@@ -16,5 +16,4 @@ class Torreta {
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
   };
 
-  // que la torreta dispare
 }
