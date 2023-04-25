@@ -18,7 +18,8 @@ class Game {
     this.aircraftArr = [];
 
     //la bala
-    this.bullet = new Bullet();
+    //* this.bullet = new Bullet();
+    this.bulletArr = [];
   }
 
   //! MVP
@@ -30,18 +31,42 @@ class Game {
       this.aircraftArr[this.aircraftArr.length - 1].x < 200
     ) {
       // cuando empieza el juego (array vacio)
-      let nuevoAircraftArriba = new Aircraft(0, true);
+      let nuevoAircraftArriba = new Aircraft(0);
       this.aircraftArr.push(nuevoAircraftArriba); // añade un avion
-      let nuevoAircraftAbajo = new Aircraft(150, false);
-      this.aircraftArr.push(nuevoAircraftAbajo)
     }
   };
 
-  
+  bulletShot = () => {
+    if (
+      this.bulletArr.length === 0 ||
+      this.bulletArr[this.bulletArr.length - 1].y < 200
+    ) {
+      let nuevaBullet = new Bullet();
+      this.bulletArr.push(nuevaBullet); // añade una bala
+    }
+  };
+
   // colisiones de la bala con los aviones
 
   drawBackground = () => {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
+  };
+
+  removeAircraftOut = () => {
+    if (this.aircraftArr[0].x + this.aircraftArr[0].w < 0) {
+      this.aircraftArr.shift();
+      // console.log("test");
+    }
+  };
+
+  removeBulletsOut = () => {
+    if (
+      this.bulletArr.length !== 0 &&
+      this.bulletArr[0].y + this.bulletArr[0].h < 0
+    ) {
+      this.bulletArr.shift();
+      console.log("test");
+    }
   };
 
   gameLoop = () => {
@@ -56,14 +81,22 @@ class Game {
       eachAircraft.move();
     });
     this.aircraftsAparecen();
-    this.bullet.bulletMove();
+    // this.bullet.bulletMove();
+    this.bulletArr.forEach((eachBullet) => {
+      eachBullet.bulletMove();
+    });
+    this.removeAircraftOut();
+    this.removeBulletsOut();
+
     // 3. dibujado d los elementos
     this.drawBackground();
     this.torreta.torretaDraw();
     this.aircraftArr.forEach((eachAircraft) => {
       eachAircraft.aircraftDraw();
     });
-    this.bullet.bulletDraw();
+    this.bulletArr.forEach((eachBullet) => {
+      eachBullet.bulletDraw();
+    });
     // this.aircraft.aircraftDraw();
     // 4. recursion
     requestAnimationFrame(this.gameLoop);

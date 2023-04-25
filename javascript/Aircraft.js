@@ -8,7 +8,7 @@ class Aircraft {
 
     this.x = canvas.width;
     this.y = positionY;
-    //? esto deberia ser aleatorio
+    
     this.w = 70;
     this.h = 100;
     this.speed = 2;
