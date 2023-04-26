@@ -47,27 +47,57 @@ class Game {
   };
 
   // colisiones de la bala con los aviones
+  checkCollisionBulletAircraft = () => {
+    // this.bulletArr
+    // this.aircraftArr
+    this.aircraftArr.forEach((eachAircraft) => {
+      this.bulletArr.forEach((eachBullet) => {
+       
+        if (
+          eachAircraft.x < eachBullet.x + eachBullet.w &&
+          eachAircraft.x + eachAircraft.w > eachBullet.x &&
+          eachAircraft.y < eachBullet.y + eachBullet.h &&
+          eachAircraft.h + eachAircraft.y > eachBullet.y
+        ) {
+          console.log(" ha colisionado");
+          const aircraftIndex = this.aircraftArr.indexOf(eachAircraft);
+          const bulletIndex = this.bulletArr.indexOf(eachBullet);
+          this.aircraftArr.splice(aircraftIndex, 1);
+          this.bulletArr.splice(bulletIndex, 1);
+        }
+      });
+    });           
+  };
+
+  gameOver = () => {
+    // detener el juego
+    this.isGameOn = false;
+
+    // ocultar el canvas
+
+    // mostramos la pantalla final
+  };
 
   drawBackground = () => {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
   };
 
-  removeAircraftOut = () => {
-    if (this.aircraftArr[0].x + this.aircraftArr[0].w < 0) {
-      this.aircraftArr.shift();
-      // console.log("test");
-    }
-  };
+  // removeAircraftOut = () => {
+  //   if (this.aircraftArr[0].x + this.aircraftArr[0].w < 0) {
+  //     this.aircraftArr.shift();
+  //     // console.log("test");
+  //   }
+  // };
 
-  removeBulletsOut = () => {
-    if (
-      this.bulletArr.length !== 0 &&
-      this.bulletArr[0].y + this.bulletArr[0].h < 0
-    ) {
-      this.bulletArr.shift();
-      console.log("test");
-    }
-  };
+  // removeBulletsOut = () => {
+  //   if (
+  //     this.bulletArr.length !== 0 &&
+  //     this.bulletArr[0].y + this.bulletArr[0].h < 0
+  //   ) {
+  //     this.bulletArr.shift();
+  //     console.log("test");
+  //   }
+  // };
 
   gameLoop = () => {
     console.log("ejecutando recursión del juego");
@@ -85,8 +115,9 @@ class Game {
     this.bulletArr.forEach((eachBullet) => {
       eachBullet.bulletMove();
     });
-    this.removeAircraftOut();
-    this.removeBulletsOut();
+    this.checkCollisionBulletAircraft();
+    // this.removeAircraftOut();
+    // this.removeBulletsOut();
 
     // 3. dibujado d los elementos
     this.drawBackground();
@@ -99,6 +130,8 @@ class Game {
     });
     // this.aircraft.aircraftDraw();
     // 4. recursion
-    requestAnimationFrame(this.gameLoop);
+    if (this.isGameOn === true) {
+      requestAnimationFrame(this.gameLoop);
+    }
   };
 }
