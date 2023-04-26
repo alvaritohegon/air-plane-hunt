@@ -48,11 +48,8 @@ class Game {
 
   // colisiones de la bala con los aviones
   checkCollisionBulletAircraft = () => {
-    // this.bulletArr
-    // this.aircraftArr
     this.aircraftArr.forEach((eachAircraft) => {
       this.bulletArr.forEach((eachBullet) => {
-       
         if (
           eachAircraft.x < eachBullet.x + eachBullet.w &&
           eachAircraft.x + eachAircraft.w > eachBullet.x &&
@@ -66,7 +63,13 @@ class Game {
           this.bulletArr.splice(bulletIndex, 1);
         }
       });
-    });           
+      
+      if (eachAircraft.x <= 0) {
+        console.log("Game over");
+        this.gameOver();
+      
+      }
+    });
   };
 
   gameOver = () => {
@@ -74,8 +77,10 @@ class Game {
     this.isGameOn = false;
 
     // ocultar el canvas
+    canvas.style.display = "none";
 
     // mostramos la pantalla final
+    gameoverScreenDOM.style.display = "flex";
   };
 
   drawBackground = () => {
