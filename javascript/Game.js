@@ -6,7 +6,6 @@ class Game {
     this.background = new Image();
     this.background.src = "images/background.jpg";
 
-    
     //! MVP
     //la torreta
     this.torreta = new Torreta();
@@ -67,11 +66,13 @@ class Game {
           this.bulletArr.splice(bulletIndex, 1);
         }
       });
-      if (eachAircraft.x <= 0) {
+      if (eachAircraft.x <= 0 && !eachAircraft.isCounted) {
+        // comprueba si el avion ya ha sido contado
+        eachAircraft.isCounted = true; // marca el avión como contado
         this.counter--;
-        // if (this.counter <= 0) {
-        //   this.gameOver();
-        // }
+        if (this.counter <= 0) {
+          this.gameOver();
+        }
       }
     });
   };
@@ -93,8 +94,9 @@ class Game {
 
   removeAircraftOut = () => {
     if (
-      this.bulletArr.length !== 0 &&
-      this.aircraftArr[0].x + this.aircraftArr[0].w < 0) {
+      this.aircraftArr.length !== 0 &&
+      this.aircraftArr[0].x + this.aircraftArr[0].w < 0
+    ) {
       this.aircraftArr.shift();
       // console.log("test");
     }
@@ -111,10 +113,10 @@ class Game {
   };
 
   drawCounter = () => {
-    ctx.font = "25px serif"
+    ctx.font = "25px serif";
 
-    ctx.strokeText(this.counter, 300, 30)
-  }
+    ctx.strokeText(this.counter, 300, 30);
+  };
 
   gameLoop = () => {
     console.log("ejecutando recursión del juego");
@@ -145,7 +147,7 @@ class Game {
     this.bulletArr.forEach((eachBullet) => {
       eachBullet.bulletDraw();
     });
-    this.drawCounter()
+    this.drawCounter();
     // this.aircraft.aircraftDraw();
     // 4. recursion
     if (this.isGameOn === true) {

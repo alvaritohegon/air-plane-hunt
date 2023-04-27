@@ -11,7 +11,8 @@ class Aircraft {
     
     this.w = 60;
     this.h = 90;
-    this.speed = 2;
+    this.speed = 3;
+    this.isCounted = false;
   }
 
   // metodos (acciones) de los aviones
