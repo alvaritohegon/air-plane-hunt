@@ -25,14 +25,15 @@ class Game {
   //! MVP
   // metodos d Game => todas las acciones q se realizan en el juego.
   aircraftsAparecen = () => {
-    // metodo que determina cuando deberia aparecer un avion
     if (
       this.aircraftArr.length === 0 ||
       this.aircraftArr[this.aircraftArr.length - 1].x < 200
     ) {
-      // cuando empieza el juego (array vacio)
-      let nuevoAircraftArriba = new Aircraft(0);
-      this.aircraftArr.push(nuevoAircraftArriba); // añade un avion
+      const canvasHeight = document.getElementById("my-canvas").height; // con esto conseguimos el alto del canvas
+      const y = Math.floor(Math.random() * 201); // generacion random entre 0 y 200
+  
+      let nuevoAircraft = new Aircraft(y); // crear nuevo avion con posicion random
+      this.aircraftArr.push(nuevoAircraft);
     }
   };
 
@@ -63,11 +64,9 @@ class Game {
           this.bulletArr.splice(bulletIndex, 1);
         }
       });
-      
       if (eachAircraft.x <= 0) {
         console.log("Game over");
         this.gameOver();
-      
       }
     });
   };
