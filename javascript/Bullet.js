@@ -4,8 +4,8 @@ class Bullet {
     this.img.src = "images/bala.png";
     this.x = 285; 
     this.y = 330; 
-    this.w = 50; 
-    this.h = 50; 
+    this.w = 40; 
+    this.h = 40; 
     this.speed = 2;
   }
 

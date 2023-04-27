@@ -1,5 +1,5 @@
 class Aircraft {
-  constructor( positionY, isImageUp ) {
+  constructor( positionY ) {
     // propiedades de cada avión
 
     this.img = new Image();
@@ -9,8 +9,8 @@ class Aircraft {
     this.x = canvas.width;
     this.y = positionY;
     
-    this.w = 70;
-    this.h = 100;
+    this.w = 60;
+    this.h = 90;
     this.speed = 2;
   }
 

@@ -6,7 +6,7 @@ class Game {
     this.background = new Image();
     this.background.src = "images/background.jpg";
 
-    this.isGameOn = true;
+    
     //! MVP
     //la torreta
     this.torreta = new Torreta();
@@ -20,6 +20,11 @@ class Game {
     //la bala
     //* this.bullet = new Bullet();
     this.bulletArr = [];
+    this.isGameOn = true;
+
+    // contador d vidas
+
+    this.counter = 3;
   }
 
   //! MVP
@@ -29,9 +34,7 @@ class Game {
       this.aircraftArr.length === 0 ||
       this.aircraftArr[this.aircraftArr.length - 1].x < 200
     ) {
-      const canvasHeight = document.getElementById("my-canvas").height; // con esto conseguimos el alto del canvas
       const y = Math.floor(Math.random() * 201); // generacion random entre 0 y 200
-  
       let nuevoAircraft = new Aircraft(y); // crear nuevo avion con posicion random
       this.aircraftArr.push(nuevoAircraft);
     }
@@ -40,7 +43,7 @@ class Game {
   bulletShot = () => {
     if (
       this.bulletArr.length === 0 ||
-      this.bulletArr[this.bulletArr.length - 1].y < 200
+      this.bulletArr[this.bulletArr.length - 1].y < 150
     ) {
       let nuevaBullet = new Bullet();
       this.bulletArr.push(nuevaBullet); // añade una bala
@@ -65,8 +68,10 @@ class Game {
         }
       });
       if (eachAircraft.x <= 0) {
-        console.log("Game over");
-        this.gameOver();
+        this.counter--;
+        // if (this.counter <= 0) {
+        //   this.gameOver();
+        // }
       }
     });
   };
@@ -86,22 +91,30 @@ class Game {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
   };
 
-  // removeAircraftOut = () => {
-  //   if (this.aircraftArr[0].x + this.aircraftArr[0].w < 0) {
-  //     this.aircraftArr.shift();
-  //     // console.log("test");
-  //   }
-  // };
+  removeAircraftOut = () => {
+    if (
+      this.bulletArr.length !== 0 &&
+      this.aircraftArr[0].x + this.aircraftArr[0].w < 0) {
+      this.aircraftArr.shift();
+      // console.log("test");
+    }
+  };
 
-  // removeBulletsOut = () => {
-  //   if (
-  //     this.bulletArr.length !== 0 &&
-  //     this.bulletArr[0].y + this.bulletArr[0].h < 0
-  //   ) {
-  //     this.bulletArr.shift();
-  //     console.log("test");
-  //   }
-  // };
+  removeBulletsOut = () => {
+    if (
+      this.bulletArr.length !== 0 &&
+      this.bulletArr[0].y + this.bulletArr[0].h < 0
+    ) {
+      this.bulletArr.shift();
+      console.log("test");
+    }
+  };
+
+  drawCounter = () => {
+    ctx.font = "25px serif"
+
+    ctx.strokeText(this.counter, 300, 30)
+  }
 
   gameLoop = () => {
     console.log("ejecutando recursión del juego");
@@ -120,8 +133,8 @@ class Game {
       eachBullet.bulletMove();
     });
     this.checkCollisionBulletAircraft();
-    // this.removeAircraftOut();
-    // this.removeBulletsOut();
+    this.removeAircraftOut();
+    this.removeBulletsOut();
 
     // 3. dibujado d los elementos
     this.drawBackground();
@@ -132,6 +145,7 @@ class Game {
     this.bulletArr.forEach((eachBullet) => {
       eachBullet.bulletDraw();
     });
+    this.drawCounter()
     // this.aircraft.aircraftDraw();
     // 4. recursion
     if (this.isGameOn === true) {
