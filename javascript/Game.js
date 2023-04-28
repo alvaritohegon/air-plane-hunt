@@ -9,7 +9,6 @@ class Game {
     //! MVP
     //la torreta
     this.torreta = new Torreta();
-    console.log(this.torreta);
 
     //los aviones
     //* probar haciendo un solo avion
@@ -22,7 +21,6 @@ class Game {
     this.isGameOn = true;
 
     // contador d vidas
-
     this.counter = 3;
   }
 
@@ -59,11 +57,10 @@ class Game {
           eachAircraft.y < eachBullet.y + eachBullet.h &&
           eachAircraft.h + eachAircraft.y > eachBullet.y
         ) {
-          console.log(" ha colisionado");
           const aircraftIndex = this.aircraftArr.indexOf(eachAircraft);
           const bulletIndex = this.bulletArr.indexOf(eachBullet);
-          this.aircraftArr.splice(aircraftIndex, 1);
-          this.bulletArr.splice(bulletIndex, 1);
+          this.aircraftArr.splice(aircraftIndex, 1); // esta linea borra el avión
+          this.bulletArr.splice(bulletIndex, 1); // esta línea borra la bala
         }
       });
       if (eachAircraft.x <= 0 && !eachAircraft.isCounted) {
@@ -108,7 +105,6 @@ class Game {
       this.bulletArr[0].y + this.bulletArr[0].h < 0
     ) {
       this.bulletArr.shift();
-      console.log("test");
     }
   };
 
@@ -119,8 +115,6 @@ class Game {
   };
 
   gameLoop = () => {
-    console.log("ejecutando recursión del juego");
-
     // 1. limpieza del canvas
     //toDo
 
@@ -149,6 +143,7 @@ class Game {
     });
     this.drawCounter();
     // this.aircraft.aircraftDraw();
+
     // 4. recursion
     if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);

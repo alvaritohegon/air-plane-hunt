@@ -11,8 +11,6 @@ let gameObj;
 // *STATE MANAGEMENT FUNCTIONS
 
 const startGame = () => {
-  console.log("intentando iniciar el juego");
-
   // cambiar las pantallas d juego
   splashScreenDOM.style.display = "none";
   canvas.style.display = "block";
